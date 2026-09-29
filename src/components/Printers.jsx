@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useModalImpresora } from '../context/ModalImpresoraContext';
-import { imagenesPorNombre } from '../utils/imagenesImpresoras';
+import { imagenesPorNombre } from '../utils/ImagenesImpresoras';
 
 
 const procesos = ['Todos', 'Filamento', 'Resina', 'Otros'];

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useModalImpresora } from '../context/ModalImpresoraContext';
-import { imagenesPorNombre } from '../utils/imagenesImpresoras';
+import { imagenesPorNombre } from '../utils/ImagenesImpresoras';
 
 
 export default function ModalImpresora() {
