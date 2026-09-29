@@ -1,0 +1,19 @@
+ 
+{
+  "filamento": {
+    "titulo": "Impresión por Filamento (FDM)",
+    "impresoras": ["Creality Ender 3", "Prusa i3 MK3S+", "Bambu Lab P1P"],
+    "materiales": ["PLA", "ABS", "PETG", "TPU (Flexible)"]
+  },
+  "resina": {
+    "titulo": "Impresión por Resina Líquida (SLA/LCD)",
+    "impresoras": ["Elegoo Mars 4", "Anycubic Photon Mono X", "Prusa SL1S"],
+    "materiales": ["Resina Estándar", "Resina Lavable al Agua", "Resina ABS-Like"]
+  },
+  "otros": {
+    "titulo": "Otros Tipos de Impresión",
+    "impresoras": ["Formlabs Form 3L (SLS)", "HP Jet Fusion"],
+    "materiales": ["Polvo de Nylon", "Polvo Metálico"]
+  }
+}
+  

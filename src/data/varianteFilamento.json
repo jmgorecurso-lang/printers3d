@@ -1,0 +1,63 @@
+{
+   "Cartesiana (Bedslinger)":{
+    "descripcion": "La cama se mueve en el eje Y, el cabezal se mueve en X y Z. Es el diseño más común y económico.",
+    "marcas": [
+      "Bambu Lab",
+      "Elegoo",
+      "Creality"
+    ],
+    "modelos": [
+      "Bambu Lab A1",
+      "Elegoo Neptune 4",
+      "Creality Ender 3 V3 KE"
+    ]
+  },
+  
+    "CoreXY":{
+    "descripcion": "La cama solo se mueve en Z, mientras que X e Y se controlan mediante dos motores fijos y un sistema de correas entrelazadas.",
+    "marcas": [
+      "Prusa",
+      "Sovol",
+      "Creality",
+      "Qidi",
+      "Bambu Lab"
+    ],
+    "modelos": [
+      "Prusa CORE One",
+      "Sovol SV08",
+      "Creality K2 SE",
+      "Qidi Q2C",
+      "Bambu Lab P1S / X1 Carbon"
+    ]
+  },
+  
+  "Delta":{
+    "descripcion": "Tres brazos verticales mueven el cabezal mediante cinemática delta; la cama es fija y circular.",
+    "marcas": [
+      "FLSUN"
+    ],
+    "modelos": [
+      "FLSUN T1",
+      "FLSUN S1",
+      "FLSUN Q5"
+    ]
+  },
+  
+   "Polar":{
+    "descripcion": "La cama rota y un solo eje lineal mueve el cabezal radialmente. Es una cinemática muy poco común en el mercado de consumo actual, prácticamente sin modelos comerciales activos relevantes.",
+    "marcas": [],
+    "modelos": []
+  },
+  
+   "IDEX (Independent Dual Extruder)":{
+        "descripcion": "Dos extrusores independientes que se mueven por el mismo eje X, permitiendo modos espejo, duplicado o impresión con dos materiales.",
+    "marcas": [
+      "Snapmaker",
+      "Raise3D"
+    ],
+    "modelos": [
+      "Snapmaker J1 / J1s",
+      "Raise3D E2"
+    ]
+  }
+}

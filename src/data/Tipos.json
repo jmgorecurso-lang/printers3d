@@ -1,0 +1,35 @@
+{
+    "filamento": {
+        "nombre": "Filamento / FDM",
+        "descripcionCorta": "Ideal para piezas mecánicas, prototipos rápidos y proyectos cotidianos (FDM).",
+        "icono": "/imagenes/filamentos.webp",
+        "funcionamiento": "Derrite un filamento plástico continuo a través de una boquilla caliente (hotend) que deposita el material capa por capa sobre una base.",
+        "temperaturaCama": "50°C - 110°C",
+        "temperaturaBoquilla": "190°C - 260°C",
+        "usos": "Doméstico, educativo y prototipado rápido",
+        "materiales": ["PLA", "ABS", "PETG", "TPU (Flexible)"],
+        "variantes": ["Cartesianas", "CoreXY", "Delta"]
+    },
+    "resina": {
+        "nombre": "Resina Líquida / SLA",
+        "descripcionCorta": "Perfecto para miniaturas, joyería y piezas que requieren máximo detalle (SLA).",
+        "icono": "/imagenes/resina.webp",
+        "funcionamiento": "Utiliza una cuba de resina líquida fotosensible que se solidifica selectivamente capa por capa mediante la exposición a una fuente de luz ultravioleta.",
+        "temperaturaCama": "No aplica",
+        "temperaturaBoquilla": "No aplica (Usa luz UV)",
+        "usos": "Profesional detallado, joyería, dental y hobbistas avanzados",
+        "materiales": ["Resina Estándar", "Resina Lavable al Agua", "Resina ABS-Like"],
+        "variantes": ["SLA", "DLP", "MSLA / LCD"]
+    },
+    "otros": {
+        "nombre": "Otros Tipos / SLS Sinterizado",
+        "descripcionCorta": "Explora tecnologías industriales como SLS, polvo metálico y más.",
+        "icono": "/imagenes/polvo.webp",
+        "funcionamiento": "Un láser de alta potencia funde de forma selectiva finas capas de material en polvo dentro de una cámara precalentada.",
+        "temperaturaCama": "Cerca del punto de fusión del polvo",
+        "temperaturaBoquilla": "No aplica (Usa Láser CO2)",
+        "usos": "Industrial y profesional avanzado",
+        "materiales": ["Polvo de Nylon", "Polvo Metálico"],
+        "variantes": "SLS Estándar"
+    }
+}
