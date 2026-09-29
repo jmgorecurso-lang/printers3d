@@ -4,6 +4,9 @@ import Home from './components/Home';
 import TipoImpd from './components/TipoImpresion';
 import Printers from './components/Printers';
 import Materials from './components/Materials';
+import ModalImpresora from './components/ModalImpresora';
+import { ModalImpresoraProvider } from './context/ModalImpresoraContext';
+
 // import Settings from './components/Settings';
 
 export default function App() {
@@ -30,13 +33,16 @@ export default function App() {
   };
 
   return (
-    <div className="app-shell" data-theme={modoOscuro ? 'dark' : 'light'}>
-      <Navbar
-        setVistaActual={setVista}
-        modoOscuro={modoOscuro}
-        setModoOscuro={setModoOscuro}
-      />
-      {renderContenido()}
-    </div>
+    <ModalImpresoraProvider>
+      <div className="app-shell" data-theme={modoOscuro ? 'dark' : 'light'}>
+        <Navbar
+          setVistaActual={setVista}
+          modoOscuro={modoOscuro}
+          setModoOscuro={setModoOscuro}
+        />
+        {renderContenido()}
+        <ModalImpresora />
+      </div>
+    </ModalImpresoraProvider>
   );
 }

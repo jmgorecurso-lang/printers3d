@@ -1,23 +1,27 @@
 import { useState, useEffect } from 'react';
-import catalogo from '../data/catalogoImpresoras.json';
+import { useModalImpresora } from '../context/ModalImpresoraContext';
+import { imagenesPorNombre } from '../utils/imagenesImpresoras';
+
 
 const procesos = ['Todos', 'Filamento', 'Resina', 'Otros'];
 
-const imagenesModulo = import.meta.glob('../assets/Imagenes/impresoras/*', {
-  eager: true,
-  import: 'default',
-});
-
-const imagenesPorNombre = Object.fromEntries(
-  Object.entries(imagenesModulo).map(([ruta, url]) => [
-    ruta.split('/').pop(),
-    url,
-  ])
-);
-
 export default function Printers() {
+  const [catalogo, setCatalogo] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
   const [filtro, setFiltro] = useState(null);
-  const [seleccionada, setSeleccionada] = useState(null);
+  const { abrirModal } = useModalImpresora();
+
+  useEffect(() => {
+    fetch('/api/impresoras')
+      .then((res) => {
+        if (!res.ok) throw new Error('Respuesta no válida');
+        return res.json();
+      })
+      .then((datos) => setCatalogo(datos))
+      .catch(() => setError('No se pudieron cargar las impresoras.'))
+      .finally(() => setCargando(false));
+  }, []);
 
   const destacadas = catalogo.filter((imp) => imp.destacada);
 
@@ -27,18 +31,6 @@ export default function Printers() {
       : filtro === 'Todos'
       ? catalogo
       : catalogo.filter((imp) => imp.proceso === filtro);
-
-  // Cerrar el modal con la tecla Escape
-  useEffect(() => {
-    if (!seleccionada) return;
-
-    const alPulsarTecla = (e) => {
-      if (e.key === 'Escape') setSeleccionada(null);
-    };
-
-    window.addEventListener('keydown', alPulsarTecla);
-    return () => window.removeEventListener('keydown', alPulsarTecla);
-  }, [seleccionada]);
 
   return (
     <div className="printers">
@@ -60,7 +52,9 @@ export default function Printers() {
         ))}
       </div>
 
-      {filtro === null && (
+      {cargando && <p className="printers-vacio">Cargando impresoras...</p>}
+      {error && <p className="printers-vacio">{error}</p>}
+      {filtro === null && !cargando && !error && (
         <p className="printers-vacio">Las 4 impresoras más buscadas:</p>
       )}
 
@@ -69,7 +63,7 @@ export default function Printers() {
           <article
             key={imp.modelo}
             className="printer-tarjeta"
-            onClick={() => setSeleccionada(imp)}
+            onClick={() => abrirModal(imp)}
           >
             <div className="printer-imagen">
               {imagenesPorNombre[imp.imagen] ? (
@@ -88,86 +82,6 @@ export default function Printers() {
           </article>
         ))}
       </div>
-
-      {seleccionada && (
-        <div className="modal-fondo" onClick={() => setSeleccionada(null)}>
-          <div
-            className="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-label={seleccionada.modelo}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="modal-cerrar"
-              onClick={() => setSeleccionada(null)}
-              aria-label="Cerrar"
-            >
-              ✕
-            </button>
-
-            <div className="modal-imagen">
-              {imagenesPorNombre[seleccionada.imagen] ? (
-                <img
-                  src={imagenesPorNombre[seleccionada.imagen]}
-                  alt={seleccionada.modelo}
-                />
-              ) : (
-                <span className="printer-imagen-placeholder">🖨️</span>
-              )}
-            </div>
-            <div className="modal-contenido">
-            <span className="printer-proceso-badge">{seleccionada.proceso}</span>
-            <h2>{seleccionada.modelo}</h2>
-
-            <dl className="modal-datos">
-              <div>
-                <dt>Marca: </dt>
-                <dd>{seleccionada.marca}</dd>
-              </div>
-              <div>
-                <dt>Proceso: </dt>
-                <dd>{seleccionada.proceso}</dd>
-              </div>
-              <div>
-                <dt>Subtipo: </dt>
-                <dd>{seleccionada.subtipo}</dd>
-              </div>
-               <div>
-                <dt>Calibracion</dt>
-                <dd>{seleccionada.calibracion}</dd>
-              </div>
-               <div>
-                <dt>Extrusor:</dt>
-                <dd>{seleccionada.extrusor}</dd>
-              </div>
-               <div>
-                <dt>Boquilla:</dt>
-                <dd>{seleccionada.boquilla}</dd>
-              </div>
-               <div>
-                <dt>Plataforma:</dt>
-                <dd>{seleccionada.plataforma}</dd>
-              </div>
-              <div>
-                <dt>Precio</dt>
-                <dd>{seleccionada.precio}</dd>
-              </div>
-              </dl>
-              <dl className="modal-extra">
-               <div>
-                <dt>Materiales:</dt>
-                <dd>{seleccionada.materiales}</dd>
-              </div>
-               <div>
-                <dt>Utilización:</dt>
-                <dd>{seleccionada.uso}</dd>
-              </div>
-            </dl>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

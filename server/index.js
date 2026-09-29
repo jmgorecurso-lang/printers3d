@@ -1,0 +1,35 @@
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { conectarDB } from './db.js';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.get('/api/salud', async (req, res) => {
+  try {
+    const db = await conectarDB();
+    await db.command({ ping: 1 });
+    res.json({ ok: true, mensaje: 'Conectado a MongoDB Atlas' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ ok: false, mensaje: 'No se pudo conectar' });
+  }
+});
+app.get('/api/impresoras', async (req, res) => {
+  try {
+    const db = await conectarDB();
+    const impresoras = await db
+      .collection('impresoras')
+      .find({}, { projection: { _id: 0 } })
+      .toArray();
+    res.json(impresoras);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'No se pudieron cargar las impresoras' });
+  }
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`API escuchando en http://localhost:${PORT}`));
