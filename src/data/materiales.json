@@ -1,0 +1,108 @@
+{
+  "PLA": {
+    "nombre": "ácido poliláctico (PLA)",
+    "categoria": "Filamento",
+    "temperaturaImpresion": "190°C - 220°C",
+    "resistenciaImpacto": "Baja",
+    "flexibilidad": "Rígido",
+    "descripcion": "Fácil de imprimir y buen acabado, pero frágil ante impactos y calor."
+  },
+  "ABS": {
+    "nombre": "acrilonitrilo butadieno estireno (ABS)",
+    "categoria": "Filamento",
+    "temperaturaImpresion": "220°C - 250°C",
+    "resistenciaImpacto": "Media-Alta",
+    "flexibilidad": "Rígido",
+    "descripcion": "Más resistente y tenaz que el PLA, pero requiere cama caliente y buena ventilación."
+  },
+  "PETG": {
+    "nombre": "tereftalato de polietileno glicol (PETG)",
+    "categoria": "Filamento",
+    "temperaturaImpresion": "220°C - 250°C",
+    "resistenciaImpacto": "Alta",
+    "flexibilidad": "Semi-rígido",
+    "descripcion": "Buen equilibrio entre resistencia mecánica y facilidad de impresión."
+  },
+  "TPU (Flexible)": {
+    "nombre": "termoplastic elastomer (TPU)",
+    "categoria": "Filamento",
+    "temperaturaImpresion": "210°C - 230°C",
+    "resistenciaImpacto": "Muy alta",
+    "flexibilidad": "Flexible",
+    "descripcion": "Material elástico, ideal para piezas que necesitan doblarse o amortiguar impactos."
+  },
+  "Nylon": {
+    "nombre": "Nylon",
+    "categoria": "Filamento",
+    "temperaturaImpresion": "210°C - 230°C",
+    "resistenciaImpacto": "Muy alta",
+    "flexibilidad": "Flexible",
+    "descripcion": "Resistente al calor y a los impactos, pero requiere condiciones de impresión controladas y es muy higroscópico."
+
+  },
+  "Resina Estándar": {
+    "nombre": "Resina Estándar",
+    "categoria": "Resina",
+    "temperaturaImpresion": "No aplica (curado UV)",
+    "resistenciaImpacto": "Baja",
+    "flexibilidad": "Rígido",
+    "descripcion": "Máximo detalle de impresión, pero piezas relativamente frágiles."
+  },
+   "Clear Resin": {
+    "nombre": "Resina Clear",
+    "categoria": "Resina",
+    "temperaturaImpresion": "No aplica (curado UV)",
+    "resistenciaImpacto": "Baja",
+    "flexibilidad": "Rígido",
+    "descripcion": "El único material completamente transparente para la impresión 3D en plástico."
+  },
+  "Fast Model Resin": {
+    "nombre": "Resina Fast Model",
+    "categoria": "Resina",
+    "temperaturaImpresion": "No aplica (curado UV)",
+    "resistenciaImpacto": "Baja",
+    "flexibilidad": "Rígido",
+    "descripcion": "2-3 veces más rápida que las resinas estándar, hasta 10 veces más rápida que el FDM."
+  },
+  
+  "Resina Lavable al Agua": {
+    "nombre": "Resina Lavable al Agua",
+    "categoria": "Resina",
+    "temperaturaImpresion": "No aplica (curado UV)",
+    "resistenciaImpacto": "Baja",
+    "flexibilidad": "Rígido",
+    "descripcion": "Post-procesado más cómodo (se lava con agua en vez de alcohol isopropílico)."
+  },
+  "Resina ABS-Like": {
+    "nombre": "Resina ABS-Like",
+    "categoria": "Resina",
+    "temperaturaImpresion": "No aplica (curado UV)",
+    "resistenciaImpacto": "Media",
+    "flexibilidad": "Semi-rígido",
+    "descripcion": "Simula el comportamiento mecánico del ABS con la precisión de la resina."
+  },
+  "Nylon 11 Powder": {
+    "nombre": "Nylon 11 Powder",
+    "categoria": "SLS",
+    "temperaturaImpresion": "Cerca del punto de fusión del polvo",
+    "resistenciaImpacto": "Alta",
+    "flexibilidad": "Semi-flexible",
+    "descripcion": "Muy resistente y duradero, usado en piezas funcionales industriales."
+  },
+  "TPU": {
+    "nombre": "Poliuretano Termoplástico para Sinterización Selectiva por Láser (TPU)",
+    "categoria": "SLS",
+    "temperaturaImpresion": "Cerca del punto de fusión del metal",
+    "resistenciaImpacto": "Muy alta",
+    "flexibilidad": "Rígido",
+    "descripcion": "Resistente a la deformación, abrasión y al desgaste, con excelente elasticidad y Buena absorción de impactos."
+  },
+  "Nylon 12 Powder": {
+    "nombre": "Nylon 12 Powder",
+    "categoria": "SLS",
+    "temperaturaImpresion": "Cerca del punto de fusión del polvo",
+    "resistenciaImpacto": "Alta",
+    "flexibilidad": "Semi-flexible",
+    "descripcion": "Polvo de Nylon 12 para impresión SLS, ideal para prototipos funcionales y piezas finales."
+  }
+}

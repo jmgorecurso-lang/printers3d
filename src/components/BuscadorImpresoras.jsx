@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import catalogo from '../data/catalogoImpresoras.json';
 import tipos from '../data/Tipos.json';
+import { useModalImpresora } from '../context/ModalImpresoraContext';
 
 const atajos = [
   'Bambu Lab A1',
@@ -10,8 +11,10 @@ const atajos = [
   'Resina ABS-Like',
 ];
 
+
 function BuscadorImpresoras({ alSeleccionarTipo }) {
   const [busqueda, setBusqueda] = useState('');
+  const { abrirModal } = useModalImpresora();
 
   const textoBusqueda = busqueda.trim().toLowerCase();
 
@@ -26,6 +29,7 @@ function BuscadorImpresoras({ alSeleccionarTipo }) {
       tipo: 'impresora',
       titulo: item.modelo,
       detalle: `${item.marca} · ${item.proceso} · ${item.subtipo}`,
+      impresora: item,
     }));
 
   const resultadosMateriales = [];
@@ -88,8 +92,16 @@ function BuscadorImpresoras({ alSeleccionarTipo }) {
                 <li
                   key={i}
                   className="hero-resultado-item"
-                  onClick={r.clave ? () => alSeleccionarTipo(r.clave) : undefined}
-                  style={{ cursor: r.clave ? 'pointer' : 'default' }}
+                  // 
+                  onClick={() => {
+                    console.log('resultado clicado:', r);
+                    if (r.tipo === 'impresora') {
+                      abrirModal(r.impresora);
+                    } else if (r.clave) {
+                      alSeleccionarTipo(r.clave);
+                    }
+                  }}
+                  style={{ cursor: 'pointer' }}
                 >
                   <span className="hero-resultado-tipo">
                     {r.tipo === 'impresora' ? '🖨️' : '🧪'}
