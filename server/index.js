@@ -17,6 +17,7 @@ app.get('/api/salud', async (req, res) => {
     res.status(500).json({ ok: false, mensaje: 'No se pudo conectar' });
   }
 });
+
 app.get('/api/impresoras', async (req, res) => {
   try {
     const db = await conectarDB();
@@ -30,6 +31,7 @@ app.get('/api/impresoras', async (req, res) => {
     res.status(500).json({ error: 'No se pudieron cargar las impresoras' });
   }
 });
+
 app.get('/api/materiales', async (req, res) => {
   try {
     const db = await conectarDB();
@@ -40,6 +42,9 @@ app.get('/api/materiales', async (req, res) => {
     res.json(materiales);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'No se pudieron cargar las impresoras' });
+    res.status(500).json({ error: 'No se pudieron cargar los materiales' });
   }
 });
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`API escuchando en http://localhost:${PORT}`));

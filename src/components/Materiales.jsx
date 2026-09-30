@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 
+const ICONOS_CATEGORIA = {
+  Filamento: '🧵',
+  Resina: '💧',
+  Otros: '⚙️',
+};
+
 export default function Materials() {
   const [materiales, setMateriales] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -30,22 +36,30 @@ export default function Materials() {
       <div className="materials-grid">
         {materiales.map((info) => (
           <article key={info.nombre} className="material-tarjeta">
-            <span className="material-categoria-badge">{info.categoria}</span>
-            <h3>{info.nombre}</h3>
-            <p className="material-descripcion">{info.descripcion}</p>
+            <div className="material-imagen">
+              <span className="material-icono">
+                {ICONOS_CATEGORIA[info.categoria] || '🔬'}
+              </span>
+            </div>
 
-            <ul className="material-specs">
-              <li>
-                <strong>Temperatura:</strong> {info.temperaturaImpresion}
-              </li>
-              <li>
-                <strong>Resistencia al impacto:</strong>{' '}
-                {info.resistenciaImpacto}
-              </li>
-              <li>
-                <strong>Flexibilidad:</strong> {info.flexibilidad}
-              </li>
-            </ul>
+            <div className="material-info">
+              <span className="material-categoria-badge">{info.categoria}</span>
+              <h3>{info.nombre}</h3>
+              <p className="material-descripcion">{info.descripcion}</p>
+
+              <ul className="material-specs">
+                <li>
+                  <strong>Temperatura:</strong> {info.temperaturaImpresion}
+                </li>
+                <li>
+                  <strong>Resistencia al impacto:</strong>{' '}
+                  {info.resistenciaImpacto}
+                </li>
+                <li>
+                  <strong>Flexibilidad:</strong> {info.flexibilidad}
+                </li>
+              </ul>
+            </div>
           </article>
         ))}
       </div>

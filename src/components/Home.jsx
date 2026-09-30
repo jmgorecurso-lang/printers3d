@@ -35,9 +35,8 @@ export default function Home({ alSeleccionarTipo }) {
           {Object.keys(tipos).map((clave) => {
             const info = tipos[clave];
             return (
-              <article
+              <article className="tarjetas"  
                 key={clave}
-                className="tecnologia-tarjeta"
                 onClick={() => alSeleccionarTipo(clave)}
               >
                 <div className="tecnologia-imagen">
