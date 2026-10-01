@@ -45,6 +45,17 @@ app.get('/api/materiales', async (req, res) => {
     res.status(500).json({ error: 'No se pudieron cargar los materiales' });
   }
 });
+// subimos los tipos de impresion
+app.get('/api/tipos', async (req, res) => {
+  try {
+    const db = await conectarDB();
+    const tipos = await db.collection('tipos').find({}).toArray();
+    res.json(tipos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'No se pudieron cargar los tipos' });
+  }
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`API escuchando en http://localhost:${PORT}`));

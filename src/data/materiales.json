@@ -83,7 +83,7 @@
   },
   "Nylon 11 Powder": {
     "nombre": "Nylon 11 Powder",
-    "categoria": "SLS",
+    "categoria": ["Otros", "SLS"],
     "temperaturaImpresion": "Cerca del punto de fusión del polvo",
     "resistenciaImpacto": "Alta",
     "flexibilidad": "Semi-flexible",
@@ -91,7 +91,7 @@
   },
   "TPU": {
     "nombre": "Poliuretano Termoplástico para Sinterización Selectiva por Láser (TPU)",
-    "categoria": "SLS",
+    "categoria": ["Otros", "SLS"],
     "temperaturaImpresion": "Cerca del punto de fusión del metal",
     "resistenciaImpacto": "Muy alta",
     "flexibilidad": "Rígido",
@@ -99,7 +99,7 @@
   },
   "Nylon 12 Powder": {
     "nombre": "Nylon 12 Powder",
-    "categoria": "SLS",
+    "categoria": ["Otros", "SLS"],
     "temperaturaImpresion": "Cerca del punto de fusión del polvo",
     "resistenciaImpacto": "Alta",
     "flexibilidad": "Semi-flexible",

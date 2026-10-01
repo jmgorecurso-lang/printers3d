@@ -2,7 +2,9 @@
     "filamento": {
         "nombre": "Filamento / FDM",
         "descripcionCorta": "Ideal para piezas mecánicas, prototipos rápidos y proyectos cotidianos (FDM).",
+        "explicacion": "Las impresoras FDM procesan filamentos de plástico enrollados en una bobina fundiéndolos a través de un hotend e imprimiéndolos capa a capa en una plataforma de impresión. Debido a su buena compatibilidad de materiales y a su fácil uso, las impresoras FDM se encuentran entre las impresoras 3D más populares del mercado.",
         "icono": "/imagenes/filamentos.webp",
+        "impresoras": ["Creality Ender 3", "Prusa i3 MK3S+", "Bambu Lab P1P"],
         "funcionamiento": "Derrite un filamento plástico continuo a través de una boquilla caliente (hotend) que deposita el material capa por capa sobre una base.",
         "temperaturaCama": "50°C - 110°C",
         "temperaturaBoquilla": "190°C - 260°C",
@@ -22,7 +24,7 @@
         "variantes": ["SLA", "DLP", "MSLA / LCD"]
     },
     "otros": {
-        "nombre": "Otros Tipos / SLS Sinterizado",
+        "nombre": "SLS Sinterizado / Otros tipos",
         "descripcionCorta": "Explora tecnologías industriales como SLS, polvo metálico y más.",
         "icono": "/imagenes/polvo.webp",
         "funcionamiento": "Un láser de alta potencia funde de forma selectiva finas capas de material en polvo dentro de una cámara precalentada.",

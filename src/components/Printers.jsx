@@ -5,11 +5,11 @@ import { imagenesPorNombre } from '../utils/ImagenesImpresoras';
 
 const procesos = ['Todos', 'Filamento', 'Resina', 'Otros'];
 
-export default function Printers() {
+export default function Printers({ filtroInicial }) {
   const [catalogo, setCatalogo] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-  const [filtro, setFiltro] = useState(null);
+  const [filtro, setFiltro] = useState(filtroInicial ?? null);
   const { abrirModal } = useModalImpresora();
 
   useEffect(() => {
@@ -25,9 +25,9 @@ export default function Printers() {
 
   const destacadas = catalogo.filter((imp) => imp.destacada);
 
-  const impresorasFiltradas =
+  const impresorasFiltradas = 
     filtro === null
-      ? destacadas
+    ? destacadas
       : filtro === 'Todos'
       ? catalogo
       : catalogo.filter((imp) => imp.proceso === filtro);

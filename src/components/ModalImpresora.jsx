@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useModalImpresora } from '../context/ModalImpresoraContext';
 import { imagenesPorNombre } from '../utils/ImagenesImpresoras';
 
