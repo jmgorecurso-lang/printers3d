@@ -3,7 +3,8 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import TipoImpd from './components/TipoImpresion';
 import Printers from './components/Printers';
-import Materials from './components/Materiales';
+import Materials from './components/Materials';
+import Calculadora from './components/Calculadora';
 import ModalImpresora from './components/ModalImpresora';
 import { ModalImpresoraProvider } from './context/ModalImpresoraContext';
 // import Settings from './components/Settings';
@@ -55,8 +56,8 @@ export default function App() {
             limpiarFiltro={() => setFiltroCategoriaMateriales(null)}
           />
         );
-      // case 'configuraciones':
-      //   return <Settings />;
+       case 'calculadora':
+         return <Calculadora />;
       default:
         return <Home alSeleccionarTipo={setVista} />;
     }
