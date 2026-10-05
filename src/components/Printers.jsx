@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react';
 import { useModalImpresora } from '../context/ModalImpresoraContext';
 import { imagenesPorNombre } from '../utils/ImagenesImpresoras';
 
-
-const procesos = ['Todos', 'Filamento', 'Resina', 'Otros'];
+const PROCESOS = [
+  { slug: 'todos', etiqueta: 'Todos' },
+  { slug: 'filamento', etiqueta: 'Filamento' },
+  { slug: 'resina', etiqueta: 'Resina' },
+  { slug: 'otros', etiqueta: 'Otros' },
+];
 
 export default function Printers({ filtroInicial }) {
   const [catalogo, setCatalogo] = useState([]);
@@ -25,12 +29,12 @@ export default function Printers({ filtroInicial }) {
 
   const destacadas = catalogo.filter((imp) => imp.destacada);
 
-  const impresorasFiltradas = 
+  const impresorasFiltradas =
     filtro === null
-    ? destacadas
-      : filtro === 'Todos'
+      ? destacadas
+      : filtro === 'todos'
       ? catalogo
-      : catalogo.filter((imp) => imp.proceso === filtro);
+      : catalogo.filter((imp) => imp.tipo === filtro);
 
   return (
     <div className="printers">
@@ -41,13 +45,13 @@ export default function Printers({ filtroInicial }) {
       </p>
 
       <div className="printers-filtros">
-        {procesos.map((p) => (
+        {PROCESOS.map((p) => (
           <button
-            key={p}
-            className={`chip ${filtro === p ? 'chip-activo' : ''}`}
-            onClick={() => setFiltro(p)}
+            key={p.slug}
+            className={`chip ${filtro === p.slug ? 'chip-activo' : ''}`}
+            onClick={() => setFiltro(p.slug)}
           >
-            {p}
+            {p.etiqueta}
           </button>
         ))}
       </div>

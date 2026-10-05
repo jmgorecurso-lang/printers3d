@@ -11,9 +11,9 @@ function Navbar({ setVistaActual, modoOscuro, setModoOscuro }) {
         <li onClick={() => setVistaActual('inicio')}>Tipo de Impresión</li>
         <li onClick={() => setVistaActual('impresoras')}>Impresoras</li>
         <li onClick={() => setVistaActual('materiales')}>Materiales</li>
-        <li onClick={() => setVistaActual('configuraciones')}>
-          Configuraciones
+        <li onClick={() => setVistaActual('configuraciones')}>Configuraciones
         </li>
+        <li onClick={() => setVistaActual('calculadora')}>Calculadora</li>
         <li className="navbar-item-deshabilitado">Post</li>
       </ul>
 

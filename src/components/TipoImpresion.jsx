@@ -1,35 +1,30 @@
 import { useState, useEffect } from 'react';
 
-const CATEGORIA_POR_TIPO = {
-  filamento: 'Filamento',
-  resina: 'Resina',
-  otros: 'Otros',
-};
-
 export default function TipoImpd({ tipo, volver, irAMateriales, irAImpresoras }) {
   const [info, setInfo] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
- useEffect(() => {
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  setCargando(true);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  setError(null);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCargando(true);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setError(null);
 
-  fetch('/api/tipos')
-    .then((res) => {
-      if (!res.ok) throw new Error('Respuesta no válida');
-      return res.json();
-    })
-    .then((tipos) => {
-      const encontrado = tipos.find((t) => t._id === tipo);
-      if (!encontrado) throw new Error('Tipo no encontrado');
-      setInfo(encontrado);
-    })
-    .catch(() => setError('No se pudo cargar la información de este tipo.'))
-    .finally(() => setCargando(false));
-}, [tipo]);
+    fetch('/api/tipos')
+      .then((res) => {
+        if (!res.ok) throw new Error('Respuesta no válida');
+        return res.json();
+      })
+      .then((tipos) => {
+        const encontrado = tipos.find((t) => t._id === tipo);
+        if (!encontrado) throw new Error('Tipo no encontrado');
+        setInfo(encontrado);
+      })
+      .catch(() => setError('No se pudo cargar la información de este tipo.'))
+      .finally(() => setCargando(false));
+  }, [tipo]);
+
   if (cargando) {
     return (
       <div style={{ padding: '2rem' }}>
@@ -48,8 +43,6 @@ export default function TipoImpd({ tipo, volver, irAMateriales, irAImpresoras })
       </div>
     );
   }
-
-  const categoria = CATEGORIA_POR_TIPO[tipo];
 
   return (
     <div style={{ padding: '2rem' }}>
@@ -72,7 +65,7 @@ export default function TipoImpd({ tipo, volver, irAMateriales, irAImpresoras })
 
       <div
         style={{ marginTop: '2rem', cursor: 'pointer' }}
-        onClick={() => irAMateriales(categoria)}
+        onClick={() => irAMateriales(tipo)}
       >
         <h3 style={{ color: 'var(--color-primario)' }}>
           🧪 Materiales comunes →
@@ -87,7 +80,7 @@ export default function TipoImpd({ tipo, volver, irAMateriales, irAImpresoras })
       {info.variantes && (
         <div
           style={{ marginTop: '2rem', cursor: 'pointer' }}
-          onClick={() => irAImpresoras(categoria)}
+          onClick={() => irAImpresoras(tipo)}
         >
           <h3 style={{ color: 'var(--color-primario)' }}>
             🖨️ Impresoras compatibles →
