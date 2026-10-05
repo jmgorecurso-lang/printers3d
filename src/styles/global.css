@@ -1,5 +1,15 @@
 /* ===== Variables globales ===== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+.allan-regular {
+  font-family: "Allan", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.allan-bold {
+  font-family: "Allan", serif;
+  font-weight: 700;
+  font-style: normal;
+}
 /* ===== Modo Dia ==== */
 :root {
   --color-primario: #2f6feb;
@@ -9,6 +19,7 @@
   --color-texto-sobre-primario: #ffffff;
   --color-superficie: #f5f5f5;
   --color-borde: #e2e8f0;
+  --color-boton2: #B3B1B1;
   --color-fondo: #f8fafc;
   --color-titulo1:#0f172a;
   --color-titulo2:#2f6feb;
@@ -550,6 +561,7 @@ p {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  font-family:Cochin;
   background: var ( --color-superficie);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -561,8 +573,8 @@ p {
   max-height: 90vh;
   overflow-y: auto;
 
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  color: var (--color-texto);
+  /* font-family: Inter, system-ui, -apple-system, sans-serif; */
+  color: black;
 
   background: var (--color-fondo);
   border: 1px solid rgba(51, 65, 85, 0.7);
@@ -570,11 +582,6 @@ p {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
 }
 
-.product-card *,
-.product-card *::before,
-.product-card *::after {
-  box-sizing: border-box;
-}
 
 .topbar {
   min-height: 56px;
@@ -593,8 +600,8 @@ p {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #9d077f;
-  font: 400 11px/1.3 "JetBrains Mono", monospace;
+  font-size: 1.1rem;
+  
   flex-wrap: wrap;
 }
 
@@ -609,11 +616,11 @@ p {
 
 .breadcrumbs a:hover,
 .breadcrumbs strong {
-  color: var( --color-texto-secundario);
+  color: black;
 }
 
 .breadcrumbs span {
-  color: #64748b;
+  color: black;
 }
 
 .top-actions {
@@ -631,7 +638,7 @@ p {
   border-radius: 999px;
   background: var (--color-texto-secundario);
   color: var (--color-primario);
-  font: 500 10px "JetBrains Mono", monospace;
+  
 }
 
 .status-dot {
@@ -649,7 +656,7 @@ p {
   border-radius: 4px;
   background: var (--color-superficie);
   color: var (--color-texto);
-  font: 400 9px "JetBrains Mono", monospace;
+  font-size: 0.8rem;
 }
 
 .close-button {
@@ -678,7 +685,7 @@ p {
 .bambu-hero {
   position: relative;
   padding: 20px;
-  background: rgba(62, 89, 208, 0.55);
+  background: var(--color-degradado);
   border-right: 1px solid rgba(51, 65, 85, 0.7);
 }
 
@@ -687,7 +694,7 @@ p {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 12px;
-  color: #0a0a0a;
+  color: #070707;
   font: 400 9px "JetBrains Mono", monospace;
   letter-spacing: 0.08em;
 }
@@ -703,7 +710,7 @@ p {
   height: 8px;
   display: inline-block;
   border-radius: 2px;
-  background: #06b6d4;
+  background: #4e074d;
 }
 
 .image-viewport {
@@ -734,7 +741,7 @@ p {
 .marker {
   position: absolute;
   z-index: 2;
-  color: #64748b;
+  color: #1f1e1e;
   font: 400 8px "JetBrains Mono", monospace;
   pointer-events: none;
 }
@@ -775,19 +782,19 @@ p {
   padding: 9px 6px;
   border: 1px solid #1e293b;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--color-boton2);
 }
 
 .telemetry-grid small {
   display: block;
-  color: #94a3b8;
+  color: var(--color-primario-oscuro);
   font-size: 9px;
 }
 
 .telemetry-grid strong {
   display: block;
   margin-top: 3px;
-  color: #22d3ee;
+  color: var(--color-texto);
   font-size: 12px;
 }
 
@@ -804,7 +811,7 @@ p {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  color: #64748b;
+  color: #390bdd;
   font: 400 10px "JetBrains Mono", monospace;
 }
 
@@ -812,15 +819,15 @@ p {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #475569;
+  background: #1c6cdb;
 }
 
 .category {
   padding: 4px 9px;
   border: 1px solid rgba(14, 116, 144, 0.55);
   border-radius: 4px;
-  background: rgba(8, 47, 73, 0.8);
-  color: #22d3ee;
+  background: var(--color-degradado);
+  color: var(--color-primario);
   font-weight: 500;
 }
 
@@ -830,7 +837,7 @@ p {
 
 .product-header h1 {
   margin: 9px 0 0;
-  color: #fff;
+  color: var(--color-texto)
   font-size: clamp(26px, 3vw, 38px);
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -1042,5 +1049,130 @@ p {
   .secondary-button,
   .primary-button {
     width: 100%;
+  }
+}
+
+/* ===== Calculadora ===== */
+.calculadora {
+  max-width: 1126px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.calculadora-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+.calculadora-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.calculadora-paso {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.calculadora-paso h2 {
+  font-size: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.calculadora-paso-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+}
+
+.calculadora-paso-header h2 {
+  margin-bottom: 0;
+}
+
+.calculadora-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+}
+
+.calculadora-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.calculadora-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.calculadora-campo label {
+  font-size: 0.8rem;
+  color: var(--color-texto-secundario);
+}
+
+.calculadora-campo input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-size: 0.95rem;
+}
+
+.calculadora-campo input:focus {
+  outline: none;
+  border-color: var(--color-primario);
+}
+
+.calculadora-resumen {
+  position: sticky;
+  top: 80px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.calculadora-resumen h2 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.calculadora-linea {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-borde);
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
+}
+
+.calculadora-total {
+  border-bottom: none;
+  margin-top: 0.4rem;
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--color-borde);
+  font-size: 1.05rem;
+  color: var(--color-texto);
+}
+
+@media (max-width: 800px) {
+  .calculadora-layout {
+    grid-template-columns: 1fr;
+  }
+  .calculadora-resumen {
+    position: static;
   }
 }
