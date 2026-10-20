@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
 
-const ICONOS_CATEGORIA = {
-  Filamento: '🧵',
-  Resina: '💧',
-  Otros: '⚙️',
+import imgFilamento from '../assets/Imagenes/Materiales/filam.svg';
+import imgResina from '../assets/Imagenes/Materiales/resina.svg';
+import imgOtros from '../assets/Imagenes/Materiales/otros.svg';
+
+const IMAGENES_TIPO = {
+  filamento: imgFilamento,
+  resina: imgResina,
+  otros: imgOtros,
 };
+
+
 
 const ETIQUETA_TIPO = {
   filamento: 'Filamento',
@@ -58,15 +64,17 @@ export default function Materials({ categoriaFiltro, limpiarFiltro }) {
 
       <div className="materials-grid">
         {materialesMostrados.map((info) => (
-          <article key={info.nombre} className="material-tarjeta">
+          <article key={info.nombre} className="material-tarjeta" data-tipo={info.tipo}>
             <div className="material-imagen">
-              <span className="material-icono">
-                {ICONOS_CATEGORIA[info.categoria] || '🔬'}
-              </span>
+              {IMAGENES_TIPO[info.tipo] ? (
+                <img src={IMAGENES_TIPO[info.tipo]} alt="" />
+              ) : (
+                <span className="material-icono">🔬</span>
+              )}
             </div>
 
             <div className="material-info">
-              <span className="material-categoria-badge">{info.categoria}</span>
+               <span className="badge-tipo">{info.categoria}</span>
               <h3>{info.nombre}</h3>
               <p className="material-descripcion">{info.descripcion}</p>
 

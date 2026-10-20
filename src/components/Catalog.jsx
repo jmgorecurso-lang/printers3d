@@ -3,7 +3,7 @@
 import printers from '../data/printers.json';
 import datos from '../data/datosPrinters.json';
 // 1. Importamos el archivo de estilos modulares
-import styles from '../styles/catalog.module.css';
+// import styles from '../styles/catalog.module.css';
 
 
 export default function Catalog({ tipo, volver }) {

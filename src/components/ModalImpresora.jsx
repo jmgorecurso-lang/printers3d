@@ -97,33 +97,95 @@ export default function ModalImpresora() {
   const referencia = imp.modelo.toUpperCase().replace(/\s+/g, '-');
   const descripcion = `${imp.marca} ${imp.modelo} — impresora de tecnología ${imp.proceso} (${imp.subtipo}).`;
 
-  const handleDescargar = () => {
-    const lineas = [
-      `FICHA TÉCNICA — ${imp.modelo}`,
-      `Marca: ${imp.marca}`,
-      `Tecnología: ${imp.proceso} / ${imp.subtipo}`,
-      '',
-      descripcion,
-      '',
-      'Especificaciones',
-      ...filas.map(([campo, valor]) => `${ETIQUETAS[campo] || campo}: ${valor}`),
-    ].join('\n');
+  const handleDescargar = async () => {
+  // Importación dinámica: la librería solo se descarga cuando alguien pulsa el botón
+  const { jsPDF } = await import('jspdf');
 
-    const blob = new Blob([lineas], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${referencia.toLowerCase()}-ficha-tecnica.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const margen = 20;
+  const anchoUtil = 210 - margen * 2;
+  let y = 25;
+
+  // Título
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(18);
+  doc.setTextColor(15, 23, 42);
+  doc.text(`Ficha técnica: ${imp.modelo}`, margen, y);
+
+  // Subtítulo
+  y += 8;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(100);
+  doc.text(`${imp.marca} - ${imp.proceso} / ${imp.subtipo}`, margen, y);
+
+  // Descripción, partida en varias líneas si no cabe
+  y += 10;
+  doc.setFontSize(10);
+  doc.setTextColor(60);
+  const lineasDescripcion = doc.splitTextToSize(descripcion, anchoUtil);
+  doc.text(lineasDescripcion, margen, y);
+  y += lineasDescripcion.length * 5 + 6;
+
+  // Cabecera de la sección
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(15, 23, 42);
+  doc.text('Especificaciones', margen, y);
+  y += 3;
+  doc.setDrawColor(200);
+  doc.line(margen, y, margen + anchoUtil, y);
+  y += 7;
+
+  // Una fila por especificación
+  filas.forEach(([campo, valor]) => {
+    const etiqueta = ETIQUETAS[campo] || campo;
+    const lineasValor = doc.splitTextToSize(String(valor), anchoUtil - 45);
+    const altoFila = lineasValor.length * 5 + 4;
+
+    // Si la fila no cabe en lo que queda de página, pasamos a otra
+    if (y + altoFila > 275) {
+      doc.addPage();
+      y = 25;
+    }
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(80);
+    doc.text(etiqueta, margen, y);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(20);
+    doc.text(lineasValor, margen + 45, y);
+
+    y += altoFila;
+    doc.setDrawColor(230);
+    doc.line(margen, y - 3.5, margen + anchoUtil, y - 3.5);
+  });
+
+  // Pie de página en todas las páginas
+  const totalPaginas = doc.getNumberOfPages();
+  for (let i = 1; i <= totalPaginas; i++) {
+    doc.setPage(i);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(140);
+    doc.text(
+      `Generado por PrintLab el ${new Date().toLocaleDateString('es-ES')}`,
+      margen,
+      287
+    );
+    doc.text(`${i} / ${totalPaginas}`, margen + anchoUtil, 287, { align: 'right' });
+  }
+
+  doc.save(`${referencia.toLowerCase()}-ficha-tecnica.pdf`);
+};
 
   return (
     <div className="modal-fondo" onClick={cerrarModal}>
       <article
         className="product-card"
+        data-tipo={imp.tipo}
         role="dialog"
         aria-modal="true"
         aria-label={imp.modelo}
@@ -170,10 +232,10 @@ export default function ModalImpresora() {
             </div>
 
             <div className="image-viewport">
-              <span className="marker top-left">[CAD VIEW]</span>
+              {/* <span className="marker top-left">[CAD VIEW]</span>
               <span className="marker top-right">{imp.subtipo}</span>
               <span className="marker bottom-left">PRINTLAB</span>
-              <span className="marker bottom-right">{imp.marca}</span>
+              <span className="marker bottom-right">{imp.marca}</span> */}
 
               {imagenesPorNombre[imp.imagen] ? (
                 <img

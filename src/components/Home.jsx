@@ -13,7 +13,7 @@ const imagenes = {
 export default function Home({ alSeleccionarTipo }) {
   return (
     <div>
-      <Hero alSeleccionarTipo={alSeleccionarTipo}  />
+      <Hero alSeleccionarTipo={alSeleccionarTipo} />
 
       <section className="tecnologias">
         <p className="tecnologias-eyebrow">Segmentación de maquinaria</p>
@@ -28,15 +28,17 @@ export default function Home({ alSeleccionarTipo }) {
               UV en resina (SLA/DLP) y sinterizado láser selectivo (SLS).
             </p>
           </div>
-          <button className="btn-texto tecnologias-ver-todo">Ver más →</button>
+
         </div>
 
         <div className="tecnologias-grid">
           {Object.keys(tipos).map((clave) => {
             const info = tipos[clave];
             return (
-              <article className="tarjetas"  
+              <article
                 key={clave}
+                className="tecnologia-tarjeta"
+                data-tipo={clave}
                 onClick={() => alSeleccionarTipo(clave)}
               >
                 <div className="tecnologia-imagen">

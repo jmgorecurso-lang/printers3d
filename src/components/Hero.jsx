@@ -8,7 +8,7 @@ function Hero({ alSeleccionarTipo }) {
       </span>
 
       <h1 className="hero-titulo">
-        Encuentra la configuración exacta para tu{' '}
+        Tenemos la configuración ideal para tu{' '}
         <span className="hero-titulo-destacado">impresión 3D</span>
       </h1>
 
