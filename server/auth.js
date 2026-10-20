@@ -15,10 +15,24 @@ export async function verificarContrasena(contrasena, hash) {
 // Crea un JWT que identifica a un usuario, válido 7 días
 export function crearToken(usuario) {
   return jwt.sign(
-    { id: usuario._id.toString(), email: usuario.email, nombre: usuario.nombre },
+    { id: usuario._id.toString(), 
+      email: usuario.email, 
+      nombre: usuario.nombre,
+      rol: usuario.rol ||'usuario', 
+    },
     process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
+}
+// Devuelve el usuario si hay una sesión válida, o null si no la hay
+export function usuarioOpcional(req) {
+  const token = req.cookies?.token;
+  if (!token) return null;
+  try {
+    return verificarToken(token);
+  } catch {
+    return null;
+  }
 }
 
 // Comprueba que un token es válido y no ha sido manipulado; devuelve sus datos
@@ -38,4 +52,21 @@ export function requiereAuth(req, res, next) {
   } catch {
     return res.status(401).json({ error: 'Sesión no válida o caducada' });
   }
+}
+// Middleware adicional: exige que el usuario autenticado tenga uno de los roles indicados
+export function requiereRol(...rolesPermitidos) {
+  return (req, res, next) => {
+    if (!rolesPermitidos.includes(req.usuario.rol)) {
+      return res.status(403).json({ error: 'No tienes permiso para esto' });
+    }
+    next();
+  };
+  
+}
+// Función para obtener iniciales dinámica
+function obtenerIniciales(nombre) {
+  if (!nombre) return "??";
+  const partes = nombre.trim().split(/\s+/);
+  if (partes.length >= 2) return (partes[0][0] + partes[1][0]).toUpperCase();
+  return partes[0].substring(0, 2).toUpperCase();
 }
