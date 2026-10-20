@@ -6,45 +6,64 @@ import Printers from './components/Printers';
 import Materials from './components/Materials';
 import Calculadora from './components/Calculadora';
 import ModalImpresora from './components/ModalImpresora';
+import AuthModal from './components/AuthModal';
 import { ModalImpresoraProvider } from './context/ModalImpresoraContext';
-// import Settings from './components/Settings';
+import { AuthProvider } from './context/AuthContext';
+import Configuraciones from './components/Configuraciones';
+import Footer from './components/Footer';
+
+import Panel from './components/Panel';
 
 export default function App() {
+  // null = no abrir nada; { config: null } = formulario de creación;
+  // { config: {...} } = formulario de edición de esa configuración
+  const [formularioInicial, setFormularioInicial] = useState(null);
   const [vista, setVista] = useState('inicio');
   const [modoOscuro, setModoOscuro] = useState(false);
-   const [filtroCategoriaMateriales, setFiltroCategoriaMateriales] = useState(null);
-    const [filtroProcesoImpresoras, setFiltroProcesoImpresoras] = useState(null);
+  const [filtroCategoriaMateriales, setFiltroCategoriaMateriales] = useState(null);
+  const [filtroProcesoImpresoras, setFiltroProcesoImpresoras] = useState(null);
 
-   // Navegación normal: siempre limpia cualquier filtro de materiales que quedara puesto
   const irAVista = (nuevaVista) => {
     setFiltroCategoriaMateriales(null);
-     setFiltroProcesoImpresoras(null);
+    setFiltroProcesoImpresoras(null);
+    setFormularioInicial(null);
     setVista(nuevaVista);
   };
 
-  // Navegación especial: va a Materiales YA filtrado por una categoría concreta
   const irAMaterialesFiltrados = (categoria) => {
     setFiltroCategoriaMateriales(categoria);
     setVista('materiales');
   };
+
   const irAImpresorasFiltradas = (proceso) => {
     setFiltroProcesoImpresoras(proceso);
     setVista('impresoras');
   };
+  const irAFormularioConfiguracion = (config = null) => {
+  setFormularioInicial({ config });
+  setVista('configuraciones');
+};
 
-   const renderContenido = () => {
+  const renderContenido = () => {
     switch (vista) {
       case 'inicio':
         return <Home alSeleccionarTipo={setVista} />;
       case 'filamento':
       case 'resina':
       case 'otros':
+      case 'configuraciones':
+        return <Configuraciones formularioInicial={formularioInicial} />;
+      case 'panel':
+        return <Panel irA={irAVista} irAFormulario={irAFormularioConfiguracion}/>;
+        
+
+
         return (
           <TipoImpd
             tipo={vista}
             volver={() => irAVista('inicio')}
             irAMateriales={irAMaterialesFiltrados}
-             irAImpresoras={irAImpresorasFiltradas}
+            irAImpresoras={irAImpresorasFiltradas}
           />
         );
       case 'impresoras':
@@ -56,24 +75,34 @@ export default function App() {
             limpiarFiltro={() => setFiltroCategoriaMateriales(null)}
           />
         );
-       case 'calculadora':
-         return <Calculadora />;
+      case 'calculadora':
+        return <Calculadora />;
+      case 'configuraciones':
+        return <Configuraciones />;
+      case 'panel':
+        return <Panel irA={irAVista} />;
+
+
       default:
         return <Home alSeleccionarTipo={setVista} />;
     }
   };
 
   return (
-    <ModalImpresoraProvider>
-      <div className="app-shell" data-theme={modoOscuro ? 'dark' : 'light'}>
-        <Navbar
-          setVistaActual={irAVista}
-          modoOscuro={modoOscuro}
-          setModoOscuro={setModoOscuro}
-        />
-        {renderContenido()}
-        <ModalImpresora />
-      </div>
-    </ModalImpresoraProvider>
+    <AuthProvider>
+      <ModalImpresoraProvider>
+        <div className="app-shell" data-theme={modoOscuro ? 'dark' : 'light'}>
+          <Navbar
+            setVistaActual={irAVista}
+            modoOscuro={modoOscuro}
+            setModoOscuro={setModoOscuro}
+          />
+          <main className="app-contenido">{renderContenido()}</main>
+          <Footer setVistaActual={irAVista} />
+          <ModalImpresora />
+          <AuthModal />
+        </div>
+      </ModalImpresoraProvider>
+    </AuthProvider>
   );
 }
