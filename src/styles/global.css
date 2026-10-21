@@ -66,7 +66,7 @@
   --linea-gradient: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.2) 20%, #22d3ee 50%, rgba(34, 211, 238, 0.2) 80%, transparent 100%);
   --borde-sombra: 0 10px 28px rgba(11, 31, 58, 0.08);
   --sombra: 1px 1px 10px 2px#5a5959;
-   --hover:  #e6f2f4;
+  --hover: #e6f2f4;
 
 
 }
@@ -108,9 +108,9 @@
   --color-filamento: #ea580c;
   --color-resina: #7c3aed;
   --color-otros: #0d9488;
-   --hover:  #e6f2f4;
-   --titulos: #fffff5;
- 
+  --hover: #e6f2f4;
+  --titulos: #fffff5;
+
 
 
 }
@@ -131,6 +131,19 @@
   box-sizing: border-box;
 }
 
+@keyframes cierra {
+  0% {
+    transform: scale(100%);
+  }
+
+  50% {
+    transform: scale(50%);
+  }
+
+  100% {
+    transform: scale(0%);
+  }
+}
 .app-shell {
   min-height: 100vh;
   background: var(--color-fondo);
@@ -245,6 +258,25 @@ p {
 .navbar-menu li:hover {
   color: var(--color-primario);
   background: var(--hover);
+}
+
+.btn-login {
+  margin-right: -5%;
+  padding: 0.6rem 1.3rem;
+  cursor: pointer;
+  background: linear-gradient(180deg, #38BDF8, #0284C7);
+  color: var(--color-texto-sobre-primario);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
+
+}
+
+.btn-login:hover {
+  color: var(--color-titulo1);
+  background: linear-gradient(0deg, rgba(56, 189, 248, 1) 0%, rgba(230, 230, 240, 1) 49%, rgba(56, 189, 248, 1) 100%);
+  transition: background-color 1.85s ease, color 1.85s ease, border-color 1.85s ease;
 }
 
 .navbar-acciones {
@@ -519,9 +551,11 @@ p {
   text-align: center;
   color: var(--color-texto-secundario);
 }
-.tecnologias-eyebrow{
+
+.tecnologias-eyebrow {
   color: var(--color-primario);
 }
+
 .tecnologias-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
@@ -754,13 +788,14 @@ button:hover {
   width: 72px;
   height: 72px;
   border-radius: 10px;
-  background: var(--color-fondo);
+  background: var(--color-superficie);
   display: flex;
   align-items: center;
   justify-content: center;
-    overflow: hidden;
+  overflow: hidden;
 
 }
+
 .material-imagen img {
   display: block;
   width: 100%;
@@ -983,7 +1018,7 @@ button:hover {
   padding: 8px;
   user-select: none;
   pointer-events: none;
-  
+
 }
 
 .printer-imagen-placeholder-grande {
@@ -1037,7 +1072,7 @@ button:hover {
   border-radius: 4px;
   background: var(--color-superficie);
   /* color: var(--bordes-filamento); */
-  
+
   font-weight: 500;
 }
 
@@ -1409,6 +1444,39 @@ button:hover {
   border-radius: 16px;
   padding: 1.75rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.cabecera-login {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  font-size: 10px;
+  align-items: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+}
+
+.logo img {
+  height: 35px;
+}
+
+.modal-cerrar {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #334155;
+  border-radius: 50%;
+  color: #94a3b8;
+  background: #1e293b;
+  cursor: pointer;
+  
+
+
+
 }
 
 .auth-modal h2 {
@@ -2587,9 +2655,17 @@ button:hover {
   --color-otros: #2dd4bf;
 }
 
-[data-tipo='filamento'] { --color-tipo: var(--color-filamento); }
-[data-tipo='resina']    { --color-tipo: var(--color-resina); }
-[data-tipo='otros']     { --color-tipo: var(--color-otros); }
+[data-tipo='filamento'] {
+  --color-tipo: var(--color-filamento);
+}
+
+[data-tipo='resina'] {
+  --color-tipo: var(--color-resina);
+}
+
+[data-tipo='otros'] {
+  --color-tipo: var(--color-otros);
+}
 
 /* Etiqueta de categoría (sustituye a las dos antiguas) */
 .badge-tipo {
@@ -2625,4 +2701,64 @@ button:hover {
   border-color: color-mix(in srgb, var(--color-tipo) 55%, transparent);
   background: color-mix(in srgb, var(--color-tipo) 16%, transparent);
   color: var(--color-tipo);
+}
+
+/* Chip activo: toma el color de su categoría ("Todos" no tiene, y sigue en azul) */
+.chip-activo[data-tipo] {
+  border-color: var(--color-tipo, var(--color-primario));
+  background: var(--color-tipo, var(--color-primario));
+  color: var(--color-texto-sobre-primario);
+}
+
+.panel-material[data-tipo] {
+  background: color-mix(in srgb,
+      var(--color-tipo, var(--color-texto-secundario)) 14%,
+      transparent);
+  color: var(--color-tipo, var(--color-texto-secundario));
+}
+/* ===== Animación del modal de login/registro ===== */
+@keyframes auth-fondo-entrada {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes auth-fondo-salida {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes auth-modal-entrada {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes auth-modal-salida {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(42px) scale(0.97); }
+}
+
+.auth-fondo {
+  animation: auth-fondo-entrada 0.2s ease-out;
+}
+
+.auth-modal {
+  animation: auth-modal-entrada 0.22s ease-out;
+}
+
+.auth-cerrando {
+  animation: auth-fondo-salida 1.2s ease-in forwards;
+}
+
+.auth-cerrando .auth-modal {
+  animation: auth-modal-salida 1.2s ease-in forwards;
+}
+
+/* Quien tiene activada la reducción de movimiento en su sistema no ve animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .auth-fondo,
+  .auth-modal,
+  .auth-cerrando,
+  .auth-cerrando .auth-modal {
+    animation: none !important;
+  }
 }
