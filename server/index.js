@@ -491,7 +491,6 @@ app.get(
 
       // titulosPorId es la función auxiliar que ya tienes en el bloque del panel
       const titulos = await titulosPorId(db, comentarios.map((c) => c.configuracionId));
-
       res.json({
         configuraciones,
         comentarios: comentarios.map((c) => ({
