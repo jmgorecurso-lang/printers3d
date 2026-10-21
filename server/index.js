@@ -15,6 +15,13 @@ import {
 import { ObjectId } from 'mongodb';
 
 const app = express();
+// Opciones de la cookie de sesión; en producción solo viaja por HTTPS
+const opcionesCookie = {
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: process.env.NODE_ENV === 'production',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
+};
 
 app.use(
   cors({
@@ -116,11 +123,7 @@ app.post('/api/auth/registro', async (req, res) => {
     const usuario = { _id: resultado.insertedId, nombre, email: email.toLowerCase(), rol: 'usuario' };
     const token = crearToken(usuario);
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días, en milisegundos
-    });
+    res.cookie('token', token, opcionesCookie);
 
     res.status(201).json(datosPublicos(usuario));
   } catch (error) {
@@ -152,11 +155,7 @@ app.post('/api/auth/login', async (req, res) => {
     }
 
     const token = crearToken(usuario);
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+   res.cookie('token', token, opcionesCookie);
 
     res.json(datosPublicos(usuario));
   } catch (error) {
@@ -208,11 +207,7 @@ app.put('/api/auth/perfil', requiereAuth, async (req, res) => {
       .updateMany({ autorId: req.usuario.id }, { $set: { autorNombre: nombreLimpio } });
 
     // Token nuevo, porque el nombre viaja dentro del token
-    res.cookie('token', crearToken(usuario), {
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie('token', token, opcionesCookie);
 
     res.json(datosPublicos(usuario));
   } catch (error) {
@@ -511,8 +506,13 @@ app.get(
   }
 );
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`API escuchando en http://localhost:${PORT}`));
+export default app;
+
+// En local arrancamos nosotros el servidor; en Vercel lo hace la plataforma
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => console.log(`API escuchando en http://localhost:${PORT}`));
+}
 
 // ===== Configuraciones =====
 
