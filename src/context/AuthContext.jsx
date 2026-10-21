@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
       return { ok: false, error: datos.error || 'No se pudo iniciar sesión' };
     }
     setUsuario(datos);
-    setModal(null);
+    
     return { ok: true };
   };
 
