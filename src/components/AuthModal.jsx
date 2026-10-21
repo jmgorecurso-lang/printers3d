@@ -2,20 +2,23 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import CampoContrasena from './CampoContrasena';
 
+// Debe coincidir con la duración de las animaciones de salida del CSS (en milisegundos)
+const DURACION_CIERRE = 300;
+
 export default function AuthModal() {
   const { modal, cerrarModal, login, registro, abrirLogin, abrirRegistro } = useAuth();
 
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
+  const [repetida, setRepetida] = useState('');
   const [error, setError] = useState(null);
   const [enviando, setEnviando] = useState(false);
-  const [repetida, setRepetida] = useState('');
+  const [cerrando, setCerrando] = useState(false);
 
   if (!modal) return null;
 
   const esLogin = modal === 'login';
-
 
   const limpiarCampos = () => {
     setNombre('');
@@ -25,10 +28,22 @@ export default function AuthModal() {
     setError(null);
   };
 
+  // Cierra con efecto: primero se anima la salida y, al terminar, se cierra de verdad
+  const cerrarConEfecto = () => {
+    if (cerrando) return;
+    setCerrando(true);
+
+    setTimeout(() => {
+      limpiarCampos();
+      setCerrando(false);
+      cerrarModal();
+    }, DURACION_CIERRE);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    // Solo al registrarse: las dos contraseñas tienen que coincidir
+
     if (!esLogin && contrasena !== repetida) {
       setError('Las contraseñas no coinciden.');
       return;
@@ -46,7 +61,7 @@ export default function AuthModal() {
       setError(resultado.error);
       return;
     }
-    limpiarCampos();
+    cerrarConEfecto();
   };
 
   const cambiarModo = (nuevoModo) => {
@@ -56,14 +71,17 @@ export default function AuthModal() {
   };
 
   return (
-    <div className="modal-fondo" onClick={cerrarModal}>
+    <div
+      className={`modal-fondo auth-fondo ${cerrando ? 'auth-cerrando' : ''}`}
+      onClick={cerrarConEfecto}
+    >
       <div
         className="auth-modal"
         role="dialog"
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="modal-cerrar" onClick={cerrarModal} aria-label="Cerrar">
+        <button className="modal-cerrar" onClick={cerrarConEfecto} aria-label="Cerrar">
           ✕
         </button>
 
@@ -99,6 +117,7 @@ export default function AuthModal() {
             minLength={6}
             autoComplete={esLogin ? 'current-password' : 'new-password'}
           />
+
           {!esLogin && (
             <CampoContrasena
               etiqueta="Repite la contraseña"
@@ -109,10 +128,9 @@ export default function AuthModal() {
             />
           )}
 
-
           {error && <p className="auth-error">{error}</p>}
 
-          <button type="submit" className="btn-primario" disabled={enviando}>
+          <button type="submit" className="btn-primario" disabled={enviando || cerrando}>
             {enviando ? 'Enviando...' : esLogin ? 'Entrar' : 'Registrarme'}
           </button>
         </form>

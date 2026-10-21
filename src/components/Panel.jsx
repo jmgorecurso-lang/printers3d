@@ -97,7 +97,13 @@ function TablaConfiguraciones({ configuraciones, irAFormulario, onBorrar }) {
               </td>
               <td>{c.impresora || '—'}</td>
               <td>
-                {c.material ? <span className="panel-material">{c.material}</span> : '—'}
+                {c.material ? (
+                  <span className="panel-material" data-tipo={c.tipo}>
+                    {c.material}
+                  </span>
+                ) : (
+                  '—'
+                )}
               </td>
               <td className="panel-temperaturas">
                 {c.temperaturaBoquilla || '—'} / {c.temperaturaCama || '—'}

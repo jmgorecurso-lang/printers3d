@@ -55,7 +55,8 @@ const cerrarSesion = () => {
         </li>
         <li onClick={() => setVistaActual('calculadora')}>Calculadora</li>
         <li onClick={() => setVistaActual('novedades')}>Novedades</li>
-      </ul>
+              </ul>
+         <button className="btn-login" onClick={abrirLogin}>Iniciar sesión</button>
 
       <div className="navbar-acciones">
         <button

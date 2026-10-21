@@ -50,6 +50,7 @@ export default function Printers({ filtroInicial }) {
         {PROCESOS.map((p) => (
           <button
             key={p.slug}
+             data-tipo={p.slug}
             className={`chip ${filtro === p.slug ? 'chip-activo' : ''}`}
             onClick={() => setFiltro(p.slug)}
           >
