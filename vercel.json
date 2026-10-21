@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://printers3d-o3zw.vercel.app/api/:path*"
+    }
+  ]
+}
